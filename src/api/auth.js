@@ -3,7 +3,7 @@ import { API_ROUTES } from './config';
 import { getDecryptedTokenFromUrl } from '../utils/tokenHandler';
 
 const AUTH_TOKEN_KEY = 'auth_token';
-const MAIN_SERVICE_URL = process.env.NEXT_PUBLIC_ADMIN_URL || 'http://localhost:3001';
+const MAIN_SERVICE_URL = process.env.NEXT_PUBLIC_ADMIN_URL ;
 
 // Auth state change listeners
 const authListeners = new Set();
