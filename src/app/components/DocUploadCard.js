@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { File, CheckCircle, Upload, X } from 'lucide-react';
 import { userService } from '@/api/userService';
+import API_BASE_URL from '@/api/config';
 
 export default function DocUploadCard({ title, agentId, onUpload }) {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -34,12 +35,12 @@ export default function DocUploadCard({ title, agentId, onUpload }) {
 
   const getDocumentType = () => {
     const typeMap = {
-      "Piece d'identite": "identity_card",
+      "Piece d'identite": "identity",
       "Assurance": "insurance",
-      "Kibis ou registre de commerce": "business_registration",
-      "URSSAF": "social_security",
-      "Rib": "bank_details",
-      "Diplome et certification": "diplomas"
+      "Kibis ou registre de commerce": "kibis",
+      "URSSAF": "urssaf",
+      "Rib": "rib",
+      "Diplome et certification": "diploma"
     };
     return typeMap[title] || 'other';
   };
@@ -136,7 +137,7 @@ export default function DocUploadCard({ title, agentId, onUpload }) {
           </div>
           <div className="flex space-x-4 mt-2">
             <a 
-              href={uploadedFile?.filePath}
+              href={`${API_BASE_URL.replace('/api', '')}${uploadedFile?.filePath}`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-sky-700 hover:text-sky-800 text-sm underline"
@@ -145,7 +146,7 @@ export default function DocUploadCard({ title, agentId, onUpload }) {
               View Document
             </a>
             <button
-              onClick={() => window.open(uploadedFile?.filePath, '_blank')}
+              onClick={() => window.open(`${API_BASE_URL.replace('/api', '')}${uploadedFile?.filePath}`, '_blank')}
               className="text-sky-700 hover:text-sky-800 text-sm underline"
             >
               Open File
