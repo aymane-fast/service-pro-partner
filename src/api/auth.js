@@ -3,8 +3,7 @@ import { API_ROUTES } from './config';
 import { getDecryptedTokenFromUrl } from '../utils/tokenHandler';
 
 const AUTH_TOKEN_KEY = 'auth_token';
-// const MAIN_SERVICE_URL = 'https://service-pro-admin-master.vercel.app';
-const MAIN_SERVICE_URL = 'http://localhost:3001';
+const MAIN_SERVICE_URL = process.env.NEXT_PUBLIC_ADMIN_URL || 'http://localhost:3001';
 
 // Auth state change listeners
 const authListeners = new Set();
@@ -140,8 +139,7 @@ export const authService = {
         localStorage.removeItem(AUTH_TOKEN_KEY);
         delete axios.defaults.headers.common['Authorization'];
         notifyAuthStateChange();
-        // window.location.href = 'https://service-pro-admin-master.vercel.app?logout=true';
-        window.location.href = 'http://localhost:3001/?logout=true';
+        window.location.href = `${MAIN_SERVICE_URL}/?logout=true`;
     },
 
     // Get auth token

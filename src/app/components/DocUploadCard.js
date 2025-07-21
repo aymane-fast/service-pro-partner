@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import { File, CheckCircle, Upload, X } from 'lucide-react';
 import { userService } from '@/api/userService';
-import API_BASE_URL from '@/api/config';
 
 export default function DocUploadCard({ title, agentId, onUpload }) {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -137,7 +136,7 @@ export default function DocUploadCard({ title, agentId, onUpload }) {
           </div>
           <div className="flex space-x-4 mt-2">
             <a 
-              href={`${API_BASE_URL.replace('/api', '')}${uploadedFile?.filePath}`}
+              href={`${process.env.NEXT_PUBLIC_BACKEND_URL}${uploadedFile?.filePath}`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-sky-700 hover:text-sky-800 text-sm underline"
@@ -146,7 +145,7 @@ export default function DocUploadCard({ title, agentId, onUpload }) {
               View Document
             </a>
             <button
-              onClick={() => window.open(`${API_BASE_URL.replace('/api', '')}${uploadedFile?.filePath}`, '_blank')}
+              onClick={() => window.open(`${process.env.NEXT_PUBLIC_BACKEND_URL}${uploadedFile?.filePath}`, '_blank')}
               className="text-sky-700 hover:text-sky-800 text-sm underline"
             >
               Open File
