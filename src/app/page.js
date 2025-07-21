@@ -30,6 +30,7 @@ export default function InterventionList() {
         if (userResult.status === 'success') {
           setUserData(userResult.data);
           console.log('user : ',userResult.data.role);
+          console.log('user : ',userResult.data.id);
           
         }
 

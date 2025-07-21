@@ -34,12 +34,12 @@ export default function DocUploadCard({ title, agentId, onUpload }) {
 
   const getDocumentType = () => {
     const typeMap = {
-      "Piece d'identite": "identity",
+      "Piece d'identite": "identity_card",
       "Assurance": "insurance",
-      "Kibis ou registre de commerce": "kibis",
-      "URSSAF": "urssaf",
-      "Rib": "rib",
-      "Diplome et certification": "diploma"
+      "Kibis ou registre de commerce": "business_registration",
+      "URSSAF": "social_security",
+      "Rib": "bank_details",
+      "Diplome et certification": "diplomas"
     };
     return typeMap[title] || 'other';
   };

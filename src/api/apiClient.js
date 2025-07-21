@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { authService } from './auth';
 import { API_ROUTES } from './config';
-const API_BASE_URL = 'https://servicepro-api.canbridgeapp.com/api';
+// const API_BASE_URL = 'https://servicepro-api.canbridgeapp.com/api';
+const API_BASE_URL = 'localhost:8000/api';
 
 const apiClient = axios.create({
     baseURL: API_BASE_URL,
