@@ -11,6 +11,9 @@ export default function DocUploadCard({ title, agentId, onUpload }) {
   const [uploadedFile, setUploadedFile] = useState(null);
   const [getUser, setUserData] = useState(null);
 
+  // Get backend URL for file serving
+  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
+
   // Load the upload status when component mounts
   useEffect(() => {
     const fetchUser = async ()=>{
@@ -124,6 +127,14 @@ export default function DocUploadCard({ title, agentId, onUpload }) {
   }
 
   if (uploadComplete) {
+    // Create the document view URL using the new endpoint
+    const documentViewUrl = `${BACKEND_URL}/api/documents/view/${getUser?.id}/${getDocumentType()}`;
+    
+    // Debug: Log the file URL being generated
+    console.log('Document View URL:', documentViewUrl);
+    console.log('User ID:', getUser?.id);
+    console.log('Document Type:', getDocumentType());
+    
     return (
       <div className="flex flex-col space-y-4">
         <h3 className="text-lg font-semibold text-[#207DAB] mb-4 text-center">{title}</h3>
@@ -136,7 +147,7 @@ export default function DocUploadCard({ title, agentId, onUpload }) {
           </div>
           <div className="flex space-x-4 mt-2">
             <a 
-              href={`${process.env.NEXT_PUBLIC_BACKEND_URL}${uploadedFile?.filePath}`}
+              href={documentViewUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="text-sky-700 hover:text-sky-800 text-sm underline"
@@ -144,12 +155,6 @@ export default function DocUploadCard({ title, agentId, onUpload }) {
             >
               View Document
             </a>
-            <button
-              onClick={() => window.open(`${process.env.NEXT_PUBLIC_BACKEND_URL}${uploadedFile?.filePath}`, '_blank')}
-              className="text-sky-700 hover:text-sky-800 text-sm underline"
-            >
-              Open File
-            </button>
           </div>
         </div>
       </div>
