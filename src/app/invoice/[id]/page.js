@@ -8,6 +8,11 @@ export default function InvoicePage({ params }) {
   const [quote, setQuote] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Set document title for this page
+  useEffect(() => {
+    document.title = 'Service Pro - Invoice';
+  }, []);
+
   useEffect(() => {
     const fetchQuote = async () => {
       try {
@@ -18,6 +23,11 @@ export default function InvoicePage({ params }) {
         const foundQuote = quotes.find(q => String(q.id) === String(resolvedParams.id));
         console.log('Found quote:', foundQuote);
         setQuote(foundQuote);
+        
+        // Update title with quote info once loaded
+        if (foundQuote) {
+          document.title = `Service Pro - Invoice #${foundQuote.id}`;
+        }
       } catch (error) {
         console.error('Error fetching quote:', error);
       } finally {
