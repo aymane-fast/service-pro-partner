@@ -62,12 +62,14 @@ export default function Facture() {
     const fetchData = async () => {
       try {
         const allQuotes = await quoteService.getQuotes();
-        const acceptedQuotes = allQuotes.filter(quote => quote.status === 'accepted');
-        setQuotes(acceptedQuotes);
+        console.log('All quotes received:', allQuotes);
         
-        // Update totalInvoices directly
+        // Show all quotes that can be invoiced (don't filter by status)
+        setQuotes(allQuotes);
+        
+        // Update totalInvoices count
         setStats({
-          totalInvoices: acceptedQuotes.length
+          totalInvoices: allQuotes.length
         });
       } catch (error) {
         console.error('Error fetching quotes:', error);
@@ -94,10 +96,15 @@ export default function Facture() {
   };
 
   const filteredQuotes = quotes.filter(quote => 
-    quote.client.first_name.toLowerCase().includes(search.toLowerCase()) ||
-    quote.client.last_name.toLowerCase().includes(search.toLowerCase()) ||
-    quote.service_name.toLowerCase().includes(search.toLowerCase())
+    quote.client?.first_name?.toLowerCase().includes(search.toLowerCase()) ||
+    quote.client?.last_name?.toLowerCase().includes(search.toLowerCase()) ||
+    quote.service_name?.toLowerCase().includes(search.toLowerCase())
   );
+
+  // Debug logging
+  console.log('Total quotes:', quotes.length);
+  console.log('Filtered quotes:', filteredQuotes.length);
+  console.log('Search term:', search);
 
   return (
     <div className="min-h-screen bg-[#F8F4F3] p-6 flex justify-center">
