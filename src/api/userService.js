@@ -104,5 +104,26 @@ export const userService = {
         }
     },
 
+    // Get user with role info (including partner commission)
+    getUserWithRoleInfo: async (userId) => {
+        try {
+            console.log('Fetching user role info for user ID:', userId);
+            const response = await apiClient.get(`${API_ROUTES.USERS}/getUserWithRoleInfo?user_id=${userId}`);
+            console.log('getUserWithRoleInfo response:', response.data);
+            return {
+                data: response?.data?.data || null,
+                status: 'success'
+            };
+        } catch (error) {
+            console.error('Error fetching user with role info:', error);
+            console.error('Error details:', error.response);
+            return {
+                data: null,
+                status: 'error',
+                message: error.response?.data?.message || 'Une erreur est survenue lors de la récupération des informations utilisateur'
+            };
+        }
+    },
+
     
 };
